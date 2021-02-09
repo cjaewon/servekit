@@ -2,7 +2,7 @@
 ⚡️ Micro HTTP server for serving static files. 
 
 ## Motivation
-Imagine that you have frontend static files, backend server, nignix in Docker Container. the problem arises from this point appear, how to serve static files in another container? Install 1 more nignix in frontend container is overkill. this is why Servekit is made.
+Imagine that you have frontend static files, backend server, nignix in Docker Container. The problem occurs at this point, how to serve static files in another container? Install 1 more nignix in frontend container is overkill. this is why Servekit is made.
 
 ## Quick Start
 #### Start with local

@@ -22,9 +22,9 @@ func main() {
 	}
 
 	http.Handle("/", http.FileServer(http.Dir(path)))
+	log.Printf("Servekit is listening on %s.. \n", port)
+
 	if err := http.ListenAndServe(port, nil); err != nil {
 		log.Fatal(err)
 	}
-
-	log.Printf("Servekit is listening on %s.. \n", port)
 }

@@ -1,3 +1,5 @@
+project_name: Servekit
+
 builds:
 - env:
   - CGO_ENABLED=0
@@ -41,3 +43,13 @@ builds:
   - -trimpath
   ldflags:
   - -s -w
+
+
+archives:
+  - format_overrides:
+      - goos: windows
+        format: zip
+    replacements:
+      darwin: mac
+checksum:
+  algorithm: sha512
