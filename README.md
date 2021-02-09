@@ -1,2 +1,2 @@
-# servekit
-🧭 Golang based http server for serving static files
+# Servekit
+⚡️ Micro HTTP server for serving static files. 
