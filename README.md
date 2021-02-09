@@ -6,11 +6,8 @@ Imagine that you have frontend static files, backend server, nignix in Docker Co
 
 ## Quick Start
 #### Start with local
+Grab the latest binary from the [releases page](https://github.com/cjaewon/servekit/releases)
 ```sh
-# below url is a MacOS binary file 
-wget https://github.com/cjaewon/servekit/releases/download/v0.0.1/servekit_0.0.1_darwin_amd64.tar.gz
-tar xzvf servekit_0.0.1_darwin_amd64.tar.gz -C .
-
 ./servekit # serving ./static directory
 ```
 
@@ -27,3 +24,9 @@ You can set a port and serving path with environment variable
 
 - `SERVEKIT_PORT` : default is `:3000`
 - `SERVEKIT_PATH` : default is `./static`
+
+with docker, you can set environment variable like below
+```Dockerfile
+ENV SERVEKIT_PORT :3000
+ENV SERVEKIT_PATH ./static
+```
