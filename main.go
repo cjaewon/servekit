@@ -1,10 +1,12 @@
 package main
 
 import (
-	"log"
 	"net/http"
 	"servekit/config"
 	"servekit/fileserver"
+	"servekit/logger"
+
+	"go.uber.org/zap"
 )
 
 func main() {
@@ -15,9 +17,9 @@ func main() {
 	}
 
 	http.Handle("/", http.FileServer(fs))
-	log.Printf("Servekit is listening on %s.. \n", config.Server.Port)
+	logger.Log().Info("Servekit is listening", zap.String("port", config.Server.Port))
 
 	if err := http.ListenAndServe(config.Server.Port, nil); err != nil {
-		log.Fatal(err)
+		logger.Log().Fatal("Failed to start http server", zap.Error(err))
 	}
 }

@@ -13,7 +13,7 @@ type StaticFileSystem struct {
 	Config *config.Config
 }
 
-// Open iswrapper of http FileSystem Open
+// Open is wrapper of http FileSystem Open
 func (fs StaticFileSystem) Open(path string) (http.File, error) {
 	f, err := fs.Fs.Open(path)
 

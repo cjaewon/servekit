@@ -1,10 +1,11 @@
 package config
 
 import (
-	"log"
+	"servekit/logger"
 	"strings"
 
 	"github.com/spf13/viper"
+	"go.uber.org/zap"
 )
 
 // Config is servekit's config struct type
@@ -42,12 +43,12 @@ func LoadInConfig() *Config {
 	if err := v.ReadInConfig(); err != nil {
 		switch err.(type) {
 		case viper.ConfigFileNotFoundError:
-			log.Printf("Using default configuration")
+			logger.Log().Info("Using default configuration")
 		default:
-			log.Fatalf("Failed to load a config file %s", err)
+			logger.Log().Fatal("Failed to load a config file", zap.Error(err))
 		}
 	} else {
-		log.Printf("Using provided configuration")
+		logger.Log().Info("Using a provided configuration", zap.String("config_file", v.ConfigFileUsed()))
 	}
 
 	var c Config
