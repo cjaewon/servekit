@@ -3,28 +3,21 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
+	"servekit/config"
+	"servekit/fileserver"
 )
 
 func main() {
-	// SERVEKIT_PATH
-	// SERVEKIT_PORT
-	var (
-		path = "./static"
-		port = ":3000"
-	)
-
-	if os.Getenv("SERVEKIT_PATH") != "" {
-		path = os.Getenv("SERVEKIT_PATH")
-	}
-	if os.Getenv("SERVEKIT_PORT") != "" {
-		port = os.Getenv("SERVEKIT_PORT")
+	config := config.LoadInConfig()
+	fs := fileserver.StaticFileSystem{
+		Fs:     http.Dir(config.Server.Path),
+		Config: config,
 	}
 
-	http.Handle("/", http.FileServer(http.Dir(path)))
-	log.Printf("Servekit is listening on %s.. \n", port)
+	http.Handle("/", http.FileServer(fs))
+	log.Printf("Servekit is listening on %s.. \n", config.Server.Port)
 
-	if err := http.ListenAndServe(port, nil); err != nil {
+	if err := http.ListenAndServe(config.Server.Port, nil); err != nil {
 		log.Fatal(err)
 	}
 }

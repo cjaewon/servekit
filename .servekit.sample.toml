@@ -1,0 +1,6 @@
+[server]
+  port=":3000"
+  path="./static"
+  
+  mode="client-side-rendering"
+  overview=false
