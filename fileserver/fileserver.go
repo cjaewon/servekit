@@ -16,7 +16,10 @@ type StaticFileSystem struct {
 // Open iswrapper of http FileSystem Open
 func (fs StaticFileSystem) Open(path string) (http.File, error) {
 	f, err := fs.Fs.Open(path)
-	if err != nil {
+
+	if os.IsNotExist(err) && fs.Config.Server.Mode == "client-side-rendering" {
+		return fs.Fs.Open("index.html")
+	} else if err != nil {
 		return nil, err
 	}
 
@@ -25,7 +28,7 @@ func (fs StaticFileSystem) Open(path string) (http.File, error) {
 		return nil, err
 	}
 
-	if !fs.Config.Server.Overview && s.IsDir() {
+	if s.IsDir() && !fs.Config.Server.Overview {
 		index := filepath.Join(path, "index.html")
 		indexFile, err := fs.Fs.Open(index)
 		if err != nil {
