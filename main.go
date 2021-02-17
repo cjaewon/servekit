@@ -10,12 +10,13 @@ import (
 )
 
 func main() {
+	defer logger.Log().Sync()
+
 	config := config.LoadInConfig()
 	fs := fileserver.StaticFileSystem{
 		Fs:     http.Dir(config.Server.Path),
 		Config: config,
 	}
-
 	http.Handle("/", http.FileServer(fs))
 	logger.Log().Info("Servekit is listening", zap.String("port", config.Server.Port))
 
