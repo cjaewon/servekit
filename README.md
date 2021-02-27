@@ -14,9 +14,25 @@ Grab the latest binary from the [releases page](https://github.com/cjaewon/serve
 #### Start with Docker
 ```Dockerfile
 FROM cjaewon/servekit:1.0.0
-COPY ./static ./static
+COPY ./static /static
 
 EXPOSE 3000
+```
+
+#### Start with docker compose
+```yml
+version: "3.8"
+
+services:
+  app:
+    image: cjaewon/servekit:1.0.0
+    volumes:
+      - ./static:/static
+    environment:
+      - SERVEKIT_SERVER_PORT: :3000
+      - SERVEKIT_SERVER_PATH: ./static
+      - SERVEKIT_SERVER_404: none
+      - SERVEKIT_SERVER_OVERVIEW: false
 ```
 
 ## Config
@@ -45,3 +61,4 @@ ENV SERVEKIT_SERVER_PATH ./static
 ENV SERVEKIT_SERVER_404 none
 ENV SERVEKIT_SERVER_OVERVIEW false
 ```
+
