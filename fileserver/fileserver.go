@@ -1,7 +1,6 @@
 package fileserver
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -17,16 +16,15 @@ type StaticFileSystem struct {
 // Open is wrapper of http FileSystem Open
 func (fs StaticFileSystem) Open(path string) (http.File, error) {
 	f, err := fs.Fs.Open(path)
-	fmt.Println(path)
-	if os.IsNotExist(err) && fs.Config.Server.NotFoundPage != "none" {
-		return fs.Fs.Open(fs.Config.Server.NotFoundPage)
+
+	if os.IsNotExist(err) && fs.Config.Server.Mode == "client-side-rendering" {
+		return fs.Fs.Open("index.html")
 	} else if err != nil {
 		return nil, err
 	}
 
 	s, err := f.Stat()
 	if err != nil {
-		f.Close()
 		return nil, err
 	}
 
@@ -35,12 +33,6 @@ func (fs StaticFileSystem) Open(path string) (http.File, error) {
 		indexFile, err := fs.Fs.Open(index)
 		if err != nil {
 			f.Close()
-
-			fmt.Println(path)
-			if fs.Config.Server.NotFoundPage != "none" {
-				return fs.Fs.Open(fs.Config.Server.NotFoundPage)
-			}
-
 			return nil, os.ErrNotExist
 		}
 

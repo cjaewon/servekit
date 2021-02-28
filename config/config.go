@@ -11,10 +11,10 @@ import (
 // Config is servekit's config struct type
 type Config struct {
 	Server struct {
-		Port         string `mapstructure:"port"`
-		Path         string `mapstructure:"path"`
-		NotFoundPage string `mapstructure:"404"`
-		Overview     bool   `mapstructure:"overview"`
+		Port     string `mapstructure:"port"`
+		Path     string `mapstructure:"path"`
+		Mode     string `mapstructure:"mode"`
+		Overview bool   `mapstructure:"overview"`
 	} `mapstructure:"server"`
 }
 
@@ -32,7 +32,7 @@ func LoadInConfig() *Config {
 	v.SetDefault("server", map[string]interface{}{
 		"port":     ":3000",
 		"path":     "./static",
-		"404":      "none",
+		"mode":     "none",
 		"overview": false,
 	})
 

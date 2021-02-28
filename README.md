@@ -31,7 +31,7 @@ services:
     environment:
       - SERVEKIT_SERVER_PORT: :3000
       - SERVEKIT_SERVER_PATH: ./static
-      - SERVEKIT_SERVER_404: none
+      - SERVEKIT_SERVER_MODE: none
       - SERVEKIT_SERVER_OVERVIEW: false
 ```
 
@@ -46,8 +46,8 @@ Servekit scans a `.servekit.toml` at `$HOME`, `.` Directories
   port=":3000" # :3000 (default)
   path="./static" # ./static (default)
   
-  404="none" # none (default), or any 404 page path
-  # if you are using client-side-rendering, use 404="index.html"
+  mode="none" # none (default), client-side-rendering
+  # if you are using client-side-rendering, 404 page will return index.html
 
   overview=false # false (default), true
   # if your are using true, directory's file list will be show
@@ -58,7 +58,7 @@ with docker, you can set environment variable like below. (A undefined config wi
 ```Dockerfile
 ENV SERVEKIT_SERVER_PORT :3000
 ENV SERVEKIT_SERVER_PATH ./static
-ENV SERVEKIT_SERVER_404 none
+ENV SERVEKIT_SERVER_MODE none
 ENV SERVEKIT_SERVER_OVERVIEW false
 ```
 
