@@ -17,8 +17,8 @@ type StaticFileSystem struct {
 func (fs StaticFileSystem) Open(path string) (http.File, error) {
 	f, err := fs.Fs.Open(path)
 
-	if os.IsNotExist(err) && fs.Config.Server.Mode == "client-side-rendering" {
-		return fs.Fs.Open("index.html")
+	if os.IsNotExist(err) && fs.Config.Server.NotFoundPage != "" {
+		return fs.Fs.Open(fs.Config.Server.NotFoundPage)
 	} else if err != nil {
 		return nil, err
 	}
@@ -33,6 +33,11 @@ func (fs StaticFileSystem) Open(path string) (http.File, error) {
 		indexFile, err := fs.Fs.Open(index)
 		if err != nil {
 			f.Close()
+
+			if fs.Config.Server.NotFoundPage != "" {
+				return fs.Fs.Open(fs.Config.Server.NotFoundPage)
+			}
+
 			return nil, os.ErrNotExist
 		}
 
