@@ -17,7 +17,7 @@ type StaticFileSystem struct {
 func (fs StaticFileSystem) Open(path string) (http.File, error) {
 	f, err := fs.Fs.Open(path)
 
-	if os.IsNotExist(err) && fs.Config.Server.NotFoundPage != "" {
+	if os.IsNotExist(err) && fs.Config.Server.NotFoundPage != "none" {
 		return fs.Fs.Open(fs.Config.Server.NotFoundPage)
 	} else if err != nil {
 		return nil, err
@@ -34,7 +34,7 @@ func (fs StaticFileSystem) Open(path string) (http.File, error) {
 		if err != nil {
 			f.Close()
 
-			if fs.Config.Server.NotFoundPage != "" {
+			if fs.Config.Server.NotFoundPage != "none" {
 				return fs.Fs.Open(fs.Config.Server.NotFoundPage)
 			}
 

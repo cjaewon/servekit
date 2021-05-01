@@ -32,7 +32,7 @@ func LoadInConfig() *Config {
 	v.SetDefault("server", map[string]interface{}{
 		"port":     ":3000",
 		"path":     "./static",
-		"404":      "",
+		"404":      "none",
 		"overview": false,
 	})
 
