@@ -13,7 +13,7 @@ Grab the latest binary from the [releases page](https://github.com/cjaewon/serve
 
 #### Start with Docker
 ```Dockerfile
-FROM cjaewon/servekit:1.0.0
+FROM cjaewon/servekit:2.0.0
 COPY ./static /static
 
 EXPOSE 3000
@@ -25,13 +25,13 @@ version: "3.8"
 
 services:
   app:
-    image: cjaewon/servekit:1.0.0
+    image: cjaewon/servekit:2.0.0
     volumes:
       - ./static:/static
     environment:
       - SERVEKIT_SERVER_PORT: :3000
       - SERVEKIT_SERVER_PATH: ./static
-      - SERVEKIT_SERVER_MODE: none
+      - SERVEKIT_SERVER_404: index.html
       - SERVEKIT_SERVER_OVERVIEW: false
 ```
 
@@ -46,11 +46,12 @@ Servekit scans a `.servekit.toml` at `$HOME`, `.` Directories
   port=":3000" # :3000 (default)
   path="./static" # ./static (default)
   
-  mode="none" # none (default), client-side-rendering
-  # if you are using client-side-rendering, 404 page will return index.html
+  404="none" # none (default), html file
+  # if you are using client side rendering, you have to change none to index.html
 
   overview=false # false (default), true
   # if your are using true, directory's file list will be show
+  # and, it can only true when 404 config is "none"
 ```
 
 ### With environment variable
@@ -58,7 +59,7 @@ with docker, you can set environment variable like below. (A undefined config wi
 ```Dockerfile
 ENV SERVEKIT_SERVER_PORT :3000
 ENV SERVEKIT_SERVER_PATH ./static
-ENV SERVEKIT_SERVER_MODE none
+ENV SERVEKIT_SERVER_404 index.html
 ENV SERVEKIT_SERVER_OVERVIEW false
 ```
 
