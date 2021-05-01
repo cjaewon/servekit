@@ -31,7 +31,7 @@ services:
     environment:
       - SERVEKIT_SERVER_PORT: :3000
       - SERVEKIT_SERVER_PATH: ./static
-      - SERVEKIT_SERVER_404: index.html
+      - SERVEKIT_SERVER_404: none
       - SERVEKIT_SERVER_OVERVIEW: false
 ```
 
@@ -59,7 +59,7 @@ with docker, you can set environment variable like below. (A undefined config wi
 ```Dockerfile
 ENV SERVEKIT_SERVER_PORT :3000
 ENV SERVEKIT_SERVER_PATH ./static
-ENV SERVEKIT_SERVER_404 index.html
+ENV SERVEKIT_SERVER_404 none
 ENV SERVEKIT_SERVER_OVERVIEW false
 ```
 
