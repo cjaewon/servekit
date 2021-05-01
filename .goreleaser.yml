@@ -10,7 +10,7 @@ builds:
   - darwin
   - linux
   - windows
-  # - freebsd
+  - freebsd
   goarch:
   - amd64
   - arm
