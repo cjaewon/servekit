@@ -2,7 +2,9 @@
 ⚡️ Micro HTTP server for serving static files. 
 
 ## Motivation
-Imagine that you have a frontend static files, backend server and nignix(reverse proxy), which are running in the Docker Container. The problem occurs at this point, how to serve static files to reverse proxy? Install 1 more nignix in frontend container, that is overkill. this is why Servekit is made.
+<!-- Imagine that you have a frontend static files, backend server and nignix(reverse proxy), which are running in the Docker Container. The problem occurs at this point, how to serve static files to reverse proxy? Install 1 more nignix in frontend container, that is overkill. this is why Servekit is made. -->
+
+Imagine you're deploying a frontend, backend server, and an Nginx reverse proxy using Docker containers. Typically, you might encounter an issue serving static files efficiently through your reverse proxy. Adding another instance of Nginx into your frontend container solely to serve static files can feel redundant and resource-intensive. This is precisely why Servekit was created—to elegantly solve the problem of serving static files without the overhead.
 
 ## Quick Start
 #### Start with local
